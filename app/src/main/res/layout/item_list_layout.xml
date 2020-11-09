@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="317dp"
+  android:layout_height="81dp"
+  android:elevation="4dp"
+  android:background="@drawable/rounded_button"
+  android:orientation="horizontal">
+
+  <FrameLayout
+    android:id="@+id/itemlist_frameLayout"
+    android:layout_width="75dp"
+    android:layout_height="75dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginStart="16dp"
+    android:padding="14dp"
+    android:background="@drawable/background_circle"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/item_imgview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:contentDescription="image" />
+
+  </FrameLayout>
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginStart="40dp"
+    android:orientation="vertical"
+    app:layout_constraintStart_toEndOf="@+id/itemlist_frameLayout"
+    >
+
+    <TextView
+      android:id="@+id/item_name_text"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:layout_marginTop="3sp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/item_date_text"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintVertical_chainStyle="spread"
+
+      />
+
+    <TextView
+      android:id="@+id/item_date_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:maxLines="1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/item_name_text"
+      app:layout_constraintBottom_toTopOf="@+id/item_memo_text"
+      app:layout_constraintVertical_chainStyle="spread"
+      />
+
+    <TextView
+      android:id="@+id/item_memo_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:maxLength="50"
+      android:maxLines="1"
+      android:layout_marginBottom="3sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/item_date_text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintVertical_chainStyle="spread"
+      />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
