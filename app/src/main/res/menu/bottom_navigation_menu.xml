@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto" >
+  <item
+    android:id="@+id/nav1"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_view_module"
+    android:iconTint="@color/white"
+    android:enabled="true"
+    android:checked="true"
+    android:title="목록"
+    />
+
+  <item
+    android:id="@+id/nav2"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_search"
+    android:iconTint="@color/white"
+    android:enabled="true"
+    android:title="검색"
+    />
+
+  <item
+    android:id="@+id/nav3"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_settings"
+    android:iconTint="@color/white"
+    android:enabled="true"
+    android:title="설정"
+    />
+
+</menu>
