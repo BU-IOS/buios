@@ -10,6 +10,7 @@
 
   <color name="black">#FF000000</color>
   <color name="white">#FFFFFFFF</color>
+  <color name="sort_red">#FFBCBC</color>
   <color name="primary_2">#28df99</color>
 <!--  <color name="1554_f_6_2">#1554f6</color>-->
   <color name="primary_3_2">#d2f6c5</color>
@@ -18,4 +19,5 @@
   <color name="border">#eeeeee</color>
   <color name="border_2">#dddddd</color>
   <color name="shadow">#40000000</color>
+
 </resources>
