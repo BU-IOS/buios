@@ -12,7 +12,8 @@
   <color name="white">#FFFFFFFF</color>
   <color name="sort_red">#FFBCBC</color>
   <color name="primary_2">#28df99</color>
-<!--  <color name="1554_f_6_2">#1554f6</color>-->
+  <color name="blue">#1554f6</color>
+  <color name="red">#F23030</color>
   <color name="primary_3_2">#d2f6c5</color>
   <color name="green_2">#7eda50</color>
   <color name="primary_2_2">#99f3bd</color>
