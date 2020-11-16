@@ -6,7 +6,8 @@
   android:layout_height="81dp"
   android:elevation="4dp"
   android:background="@drawable/rounded_button"
-  android:orientation="horizontal">
+  android:orientation="horizontal"
+  android:clickable="true">
 
   <FrameLayout
     android:id="@+id/itemlist_frameLayout"

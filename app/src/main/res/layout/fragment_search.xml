@@ -3,12 +3,16 @@
   xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  android:gravity="center">
+  android:gravity="center"
+  android:padding="16dp">
 
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Appbar area"/>
+    android:text="Search"
+    android:textSize="30sp"
+    android:textStyle="bold"
+    android:layout_marginBottom="20dp"/>
 
   <!--  검색창 -->
   <LinearLayout
@@ -17,8 +21,7 @@
     android:orientation="horizontal"
     android:layout_gravity="center"
     android:gravity="center"
-
-    >
+    android:layout_marginBottom="10dp">
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -32,7 +35,9 @@
   <!--  유튜브 추천 or 해시태그 부분-->
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -43,7 +48,7 @@
       android:id="@+id/search_youtube_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      />
+      android:text="추천" />
   </LinearLayout>
 
   <!--  리스트-->
@@ -51,7 +56,8 @@
     android:id="@+id/fragment_search_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    />
+    android:layout_marginTop="10dp"
+    android:scrollbars="none"/>
 
 
 </LinearLayout>
