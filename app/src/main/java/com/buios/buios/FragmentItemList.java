@@ -54,8 +54,12 @@ public class FragmentItemList extends Fragment {
 
         // 아이템을 추가하는 다이얼로그 작성 예정.
         // MARK : 현재 코드는 테스트용임
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("category", 3);
         FragmentManager fm = getFragmentManager();
         DialogItem dialog = DialogItem.getInstance();
+        dialog.setArguments(bundle);
         dialog.show(fm, "itemdialog");
 
       }

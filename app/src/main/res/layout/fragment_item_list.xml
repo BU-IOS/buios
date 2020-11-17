@@ -156,6 +156,7 @@
 
   <!--  리스트 표시 -->
   <ListView
+    android:id="@+id/fragment_itemlist_listview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintTop_toBottomOf="@id/fragment_itemlist_sort_btn"

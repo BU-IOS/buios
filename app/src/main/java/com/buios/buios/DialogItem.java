@@ -1,11 +1,16 @@
 package com.buios.buios;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,11 +19,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 
 public class DialogItem extends DialogFragment {
 
   private boolean isEditing;
+
 
   // View
   ImageView category_img;
@@ -33,18 +40,26 @@ public class DialogItem extends DialogFragment {
 
   private String nametxt, datetxt, memotxt;
 
-  public DialogItem() {};
+
+  FragmentManager fm;
+
+  public DialogItem() {
+  }
+
   public static DialogItem getInstance() {
     DialogItem e = new DialogItem();
     return e;
   }
 
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View dialogView =  inflater.inflate(R.layout.dialg_itemview, container, false);
+    View dialogView = inflater.inflate(R.layout.dialg_itemview, container, false);
     getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+    fm = getFragmentManager();
 
     isEditing = false;
 
@@ -136,18 +151,47 @@ public class DialogItem extends DialogFragment {
     category_imgbtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        //dialog fragment 수행 -> 카테고리 번호 받아옴
+        DialogCategorySelect dialog = DialogCategorySelect.getInstance();
+        dialog.show(fm, "categorydialog");
 
+        fm.executePendingTransactions();
 
+        dialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+          @Override
+          public void onDismiss(DialogInterface dialog) {
+            int i = getArguments().getInt("click", -1);
+            if (i != -1) {
+              setimg(i);
+            }
+          }
+        });
       }
-    }); 
-
-
+    });
 
     return dialogView;
   }
 
 
+  @Override
+  public void onResume() {
+    super.onResume();
 
+    // 화면 비율 조절
+    Window window = getDialog().getWindow();
+    Point size = new Point();
+
+    Display display = window.getWindowManager().getDefaultDisplay();
+    display.getSize(size);
+
+    int width = size.x;
+    int height = size.y;
+
+    window.setLayout((int) (width * 0.75), (int) (height * 0.6));
+    window.setGravity(Gravity.CENTER);
+
+
+  }
 
 
   protected void setimg(int number) {

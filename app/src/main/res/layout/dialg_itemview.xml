@@ -170,6 +170,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toLeftOf="@id/dialog_itemview_modifybtn"
+      app:layout_constraintHorizontal_chainStyle="spread"
       app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -181,7 +182,7 @@
       android:textColor="@color/blue"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toRightOf="@id/dialog_itemview_deletebtn"
-
+      app:layout_constraintHorizontal_chainStyle="spread"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
