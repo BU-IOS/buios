@@ -1,21 +1,22 @@
 package com.buios.buios;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
-public class DialogItem extends Dialog {
 
-  private Context context;
+public class DialogItem extends DialogFragment {
 
   private boolean isEditing;
 
@@ -32,44 +33,45 @@ public class DialogItem extends Dialog {
 
   private String nametxt, datetxt, memotxt;
 
-  // 생성자에서 넘겨주거나 dialog 값 넘기기
-  public DialogItem(@NonNull Context context) {
-    super(context);
-    this.context = context;
+  public DialogItem() {};
+  public static DialogItem getInstance() {
+    DialogItem e = new DialogItem();
+    return e;
   }
 
+  @Nullable
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.dialg_itemview);
-    this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View dialogView =  inflater.inflate(R.layout.dialg_itemview, container, false);
+    getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     isEditing = false;
 
-    category_img = findViewById(R.id.dialog_itemview_img);
-    name_text = findViewById(R.id.dialog_itemview_name_text);
-    date_text = findViewById(R.id.dialog_itemview_date_text);
-    memo_text = findViewById(R.id.dialog_itemview_memo_text);
+    category_img = dialogView.findViewById(R.id.dialog_itemview_img);
+    name_text = dialogView.findViewById(R.id.dialog_itemview_name_text);
+    date_text = dialogView.findViewById(R.id.dialog_itemview_date_text);
+    memo_text = dialogView.findViewById(R.id.dialog_itemview_memo_text);
 
-    category_imgbtn = findViewById(R.id.dialog_itemview_imgbtn);
-    name_edit = findViewById(R.id.dialog_itemview_name_edit);
-    date_edit = findViewById(R.id.dialog_itemview_date_edit);
-    memo_edit = findViewById(R.id.dialog_itemview_memo_edit);
+    category_imgbtn = dialogView.findViewById(R.id.dialog_itemview_imgbtn);
+    name_edit = dialogView.findViewById(R.id.dialog_itemview_name_edit);
+    date_edit = dialogView.findViewById(R.id.dialog_itemview_date_edit);
+    memo_edit = dialogView.findViewById(R.id.dialog_itemview_memo_edit);
 
-    deletebtn = findViewById(R.id.dialog_itemview_deletebtn);
-    modifybtn = findViewById(R.id.dialog_itemview_modifybtn);
+    deletebtn = dialogView.findViewById(R.id.dialog_itemview_deletebtn);
+    modifybtn = dialogView.findViewById(R.id.dialog_itemview_modifybtn);
+
+
 
     /*
     DB 작성후 작성
     category, name, date, memo load 후 setText, src 설정
      */
 
-    setimg(4);
+    setimg(3);
     setname("name");
     setdate("date");
     setmemo("memo");
-
-
 
     modifybtn.setOnClickListener(new Button.OnClickListener() {
       @Override
@@ -124,7 +126,6 @@ public class DialogItem extends Dialog {
       }
     });
 
-
     deletebtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -132,8 +133,22 @@ public class DialogItem extends Dialog {
       }
     });
 
+    category_imgbtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
+
+      }
+    }); 
+
+
+
+    return dialogView;
   }
+
+
+
+
 
   protected void setimg(int number) {
     int[] imglist = new int[]{R.drawable.img_vegetable, R.drawable.img_fruit,
@@ -158,8 +173,6 @@ public class DialogItem extends Dialog {
     memo_text.setText(txt);
     memo_edit.setText(txt);
   }
-
-
 }
 
 

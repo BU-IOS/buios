@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -51,8 +53,11 @@ public class FragmentItemList extends Fragment {
       public void onClick(View v) {
 
         // 아이템을 추가하는 다이얼로그 작성 예정.
-        dialogItem = new DialogItem(getContext());
-        dialogItem.show();
+        // MARK : 현재 코드는 테스트용임
+        FragmentManager fm = getFragmentManager();
+        DialogItem dialog = DialogItem.getInstance();
+        dialog.show(fm, "itemdialog");
+
       }
     });
 
