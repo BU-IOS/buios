@@ -15,9 +15,9 @@ public class FragmentSearch extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    View rootView =  inflater.inflate(R.layout.fragment_search, container, false);
     // CODE AREA
 
-
-    return inflater.inflate(R.layout.fragment_search, container, false);
+    return rootView;
   }
 }

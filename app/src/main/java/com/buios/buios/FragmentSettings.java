@@ -15,8 +15,11 @@ public class FragmentSettings extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
 
+    View rootView =  inflater.inflate(R.layout.fragment_settings, container, false);
+
     // CODE AREA
 
-    return inflater.inflate(R.layout.fragment_settings, container, false);
+
+    return rootView;
   }
 }

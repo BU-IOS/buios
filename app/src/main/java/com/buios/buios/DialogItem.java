@@ -125,6 +125,14 @@ public class DialogItem extends Dialog {
     });
 
 
+    deletebtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        dismiss();
+      }
+    });
+
+
   }
 
   protected void setimg(int number) {
