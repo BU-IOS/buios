@@ -1,6 +1,8 @@
 package com.buios.buios;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -24,12 +25,14 @@ public class FragmentItemList extends Fragment {
   private Button sort_btn;
   private ListView itemlist;
   private FloatingActionButton floatingbtn;
-  private int[] cateogry_list = new int[]{R.id.fragment_itemlist_category1_btn,
+  private final int[] cateogry_list = new int[]{R.id.fragment_itemlist_category1_btn,
       R.id.fragment_itemlist_category2_btn, R.id.fragment_itemlist_category3_btn,
       R.id.fragment_itemlist_category4_btn, R.id.fragment_itemlist_category5_btn,
       R.id.fragment_itemlist_category6_btn};
 
   private DialogItem dialogItem;
+
+  FragmentManager fm;
 
   @Nullable
   @Override
@@ -37,6 +40,8 @@ public class FragmentItemList extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.fragment_item_list, container, false);
+
+    fm = getFragmentManager();
 
     logo_img = rootView.findViewById(R.id.fragment_itemlist_logo_img);
     youtube_text = rootView.findViewById(R.id.main_youtube_text);
@@ -56,11 +61,34 @@ public class FragmentItemList extends Fragment {
         // MARK : 현재 코드는 테스트용임
 
         Bundle bundle = new Bundle();
-        bundle.putInt("category", 3);
-        FragmentManager fm = getFragmentManager();
+        bundle.putBoolean("isAdding", true);
         DialogItem dialog = DialogItem.getInstance();
         dialog.setArguments(bundle);
         dialog.show(fm, "itemdialog");
+
+        fm.executePendingTransactions();
+
+        dialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+          @Override
+          public void onDismiss(DialogInterface dialog) {
+            if (getArguments() != null) {
+              int img = getArguments().getInt("itemimg", -1);
+              String name = getArguments().getString("itemname", "");
+              String date = getArguments().getString("itemdate", "");
+              String memo = getArguments().getString("itemmemo", "");
+
+              Log.d("item_dialog_test", Integer.toString(img));
+              Log.d("item_dialog_test", name);
+              Log.d("item_dialog_test", date);
+              Log.d("item_dialog_test", memo);
+
+            } else {
+              Log.d("item_dialog_Test", "NULL");
+            }
+
+          }
+        });
+        //DB 추가
 
       }
     });

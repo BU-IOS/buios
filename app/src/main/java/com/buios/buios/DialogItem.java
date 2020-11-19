@@ -19,12 +19,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
 public class DialogItem extends DialogFragment {
 
   private boolean isEditing;
+  boolean isAdding;
+
+  Fragment frag;
 
 
   // View
@@ -35,10 +39,10 @@ public class DialogItem extends DialogFragment {
   ImageButton category_imgbtn;
   EditText name_edit, date_edit, memo_edit;
 
-  Button deletebtn;
-  Button modifybtn;
+  Button deletebtn, modifybtn;
 
-  private String nametxt, datetxt, memotxt;
+  int imgnum = -1;
+  String name = "", date = "", memo = "";
 
 
   FragmentManager fm;
@@ -60,6 +64,8 @@ public class DialogItem extends DialogFragment {
     getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     fm = getFragmentManager();
+
+    isAdding = getArguments().getBoolean("isAdding", false);
 
     isEditing = false;
 
@@ -83,29 +89,14 @@ public class DialogItem extends DialogFragment {
     category, name, date, memo load 후 setText, src 설정
      */
 
-    setimg(3);
-    setname("name");
-    setdate("date");
-    setmemo("memo");
-
     modifybtn.setOnClickListener(new Button.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (!isEditing) {
-          isEditing = true;
+          setEditing(true);
 
-          category_img.setVisibility(View.GONE);
-          category_imgbtn.setVisibility(View.VISIBLE);
-
-          name_text.setVisibility(View.GONE);
-          date_text.setVisibility(View.GONE);
-          memo_text.setVisibility(View.GONE);
-
-          name_edit.setVisibility(View.VISIBLE);
-          date_edit.setVisibility(View.VISIBLE);
-          memo_edit.setVisibility(View.VISIBLE);
-
-          modifybtn.setText("수정 완료");
+          if (!isAdding)
+            modifybtn.setText("수정 완료");
           deletebtn.setText("취소");
 
           /*
@@ -115,21 +106,22 @@ public class DialogItem extends DialogFragment {
            */
 
         } else {
-          isEditing = false;
+          isAdding = false;
+          setname(name_edit.getText().toString());
+          setdate(date_edit.getText().toString());
+          setmemo(memo_edit.getText().toString());
 
-          category_img.setVisibility(View.VISIBLE);
-          category_imgbtn.setVisibility(View.GONE);
-
-          name_text.setVisibility(View.VISIBLE);
-          date_text.setVisibility(View.VISIBLE);
-          memo_text.setVisibility(View.VISIBLE);
-
-          name_edit.setVisibility(View.GONE);
-          date_edit.setVisibility(View.GONE);
-          memo_edit.setVisibility(View.GONE);
-
-          modifybtn.setText("수정 완료");
-          deletebtn.setText("취소");
+          if (frag != null) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("itemimg", imgnum);
+            bundle.putString("itemname", name);
+            bundle.putString("itemdate", date);
+            bundle.putString("itemmemo", memo);
+            frag.setArguments(bundle);
+          }
+          setEditing(false);
+          modifybtn.setText("수정");
+          deletebtn.setText("삭제");
 
          /*
           액션 변경 예정
@@ -144,7 +136,13 @@ public class DialogItem extends DialogFragment {
     deletebtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        dismiss();
+        if (isAdding || isEditing) {
+          dismiss();
+        } else {
+          //bundle에 delete 담아 보내서 dismiss
+          Bundle bundle = new Bundle();
+          getDialog().dismiss();
+        }
       }
     });
 
@@ -160,9 +158,11 @@ public class DialogItem extends DialogFragment {
         dialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
           @Override
           public void onDismiss(DialogInterface dialog) {
-            int i = getArguments().getInt("click", -1);
-            if (i != -1) {
-              setimg(i);
+            if (getArguments() != null) {
+              imgnum = getArguments().getInt("click", -1);
+              if (imgnum != -1) {
+                setimg(imgnum);
+              }
             }
           }
         });
@@ -172,6 +172,20 @@ public class DialogItem extends DialogFragment {
     return dialogView;
   }
 
+
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    // bundle을 전송하기 위한 부모 fragment 찾기
+    frag = getFragmentManager().findFragmentById(R.id.main_layout);
+    if (isAdding) {
+      setEditing(true);
+      deletebtn.setText("취소");
+      modifybtn.setText("추가");
+    }
+
+
+  }
 
   @Override
   public void onResume() {
@@ -194,6 +208,38 @@ public class DialogItem extends DialogFragment {
   }
 
 
+  protected void setEditing(boolean Editing) {
+    if (Editing) {
+      this.isEditing = true;
+
+      category_img.setVisibility(View.GONE);
+      category_imgbtn.setVisibility(View.VISIBLE);
+
+      name_text.setVisibility(View.GONE);
+      date_text.setVisibility(View.GONE);
+      memo_text.setVisibility(View.GONE);
+
+      name_edit.setVisibility(View.VISIBLE);
+      date_edit.setVisibility(View.VISIBLE);
+      memo_edit.setVisibility(View.VISIBLE);
+
+    } else {
+      this.isEditing = false;
+
+      category_img.setVisibility(View.VISIBLE);
+      category_imgbtn.setVisibility(View.GONE);
+
+      name_text.setVisibility(View.VISIBLE);
+      date_text.setVisibility(View.VISIBLE);
+      memo_text.setVisibility(View.VISIBLE);
+
+      name_edit.setVisibility(View.GONE);
+      date_edit.setVisibility(View.GONE);
+      memo_edit.setVisibility(View.GONE);
+    }
+  }
+
+
   protected void setimg(int number) {
     int[] imglist = new int[]{R.drawable.img_vegetable, R.drawable.img_fruit,
         R.drawable.img_seafood,
@@ -206,16 +252,20 @@ public class DialogItem extends DialogFragment {
   protected void setname(String txt) {
     name_text.setText(txt);
     name_edit.setText(txt);
+    name = txt;
   }
 
   protected void setdate(String txt) {
     date_text.setText(txt);
     date_edit.setText(txt);
+    date = txt;
   }
+
 
   protected void setmemo(String txt) {
     memo_text.setText(txt);
     memo_edit.setText(txt);
+    memo = txt;
   }
 }
 
