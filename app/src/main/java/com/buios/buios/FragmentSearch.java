@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class FragmentSearch extends Fragment {
+  private ListView listview;
+  private EditText search_keyword;
+  private TextView youtube_text;
 
   private final FoodListViewAdapter adapter = new FoodListViewAdapter();
   private ListView listView;
@@ -32,7 +35,7 @@ public class FragmentSearch extends Fragment {
     keywordEdit = rootView.findViewById(R.id.fragment_search_keyword);
     listView = rootView.findViewById(R.id.fragment_search_list);
     listView.setAdapter(adapter);
-    youtubeLink = rootView.findViewById(R.id.search_youtube_text);
+    youtubeLink = rootView.findViewById(R.id.fragment_search_youtube_text);
     listView.setTextFilterEnabled(true);
 
     keywordEdit.addTextChangedListener(new TextWatcher() {
