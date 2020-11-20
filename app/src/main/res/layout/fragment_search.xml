@@ -12,6 +12,7 @@
     android:text="Search"
     android:textSize="30sp"
     android:textStyle="bold"
+    android:textColor="@color/black"
     android:layout_marginBottom="20dp"/>
 
   <!--  검색창 -->

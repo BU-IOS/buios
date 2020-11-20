@@ -44,72 +44,49 @@
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
         android:text="과일"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style" />
       <Button
         android:id="@+id/fragment_itemlist_category2_btn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
-        android:text="채소"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style"
+        android:text="채소" />
       <Button
         android:id="@+id/fragment_itemlist_category3_btn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
         android:text="고기"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style" />
+
       <Button
         android:id="@+id/fragment_itemlist_category4_btn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
         android:text="유제품"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style" />
       <Button
         android:id="@+id/fragment_itemlist_category5_btn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
         android:text="해산물"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style" />
       <Button
         android:id="@+id/fragment_itemlist_category6_btn"
         android:layout_width="68dp"
         android:layout_height="40dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:elevation="1dp"
         android:text="반찬"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:background="@drawable/category_button"
-        app:backgroundTint="@color/white" />
+        style="@style/category_style" />
 
     </LinearLayout>
 
