@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
       switch(menuItem.getItemId())
       {
         case R.id.nav1:
-          transaction.replace(R.id.main_layout, fragmentItemList).commitAllowingStateLoss();
+          transaction.replace(R.id.main_layout, fragmentItemList).disallowAddToBackStack().commitAllowingStateLoss();
 
           break;
         case R.id.nav2:
-          transaction.replace(R.id.main_layout, fragmentSearch).commitAllowingStateLoss();
+          transaction.replace(R.id.main_layout, fragmentSearch).disallowAddToBackStack().commitAllowingStateLoss();
           break;
         case R.id.nav3:
-          transaction.replace(R.id.main_layout, fragmentSettings).commitAllowingStateLoss();
+          transaction.replace(R.id.main_layout, fragmentSettings).disallowAddToBackStack().commitAllowingStateLoss();
           break;
       }
       return true;
