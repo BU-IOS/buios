@@ -47,7 +47,7 @@ public class FragmentItemList extends Fragment {
     youtube_text = rootView.findViewById(R.id.main_youtube_text);
     category_btn = new Button[6];
     for (int i = 0; i < cateogry_list.length; i++) {
-      category_btn[i] = (Button) rootView.findViewById(cateogry_list[i]);
+      category_btn[i] = rootView.findViewById(cateogry_list[i]);
     }
     sort_btn = rootView.findViewById(R.id.fragment_itemlist_sort_btn);
     itemlist = rootView.findViewById(R.id.fragment_itemlist_listview);
