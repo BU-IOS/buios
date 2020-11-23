@@ -1,6 +1,7 @@
 package com.buios.buios;
 
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -106,10 +107,16 @@ public class DialogItem extends DialogFragment {
            */
 
         } else {
-          isAdding = false;
           setname(name_edit.getText().toString());
           setdate(date_edit.getText().toString());
           setmemo(memo_edit.getText().toString());
+
+          if (isAdding){
+            isAdding = false;
+            CursorFactory cursor;
+            FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
+            db.insertData(name, date, memo, imgnum);
+          }
 
           if (frag != null) {
             Bundle bundle = new Bundle();
