@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragmentItemList extends Fragment {
@@ -43,6 +46,8 @@ public class FragmentItemList extends Fragment {
 
     fm = getFragmentManager();
 
+    FoodListViewAdapter adapter = new FoodListViewAdapter();
+
     logo_img = rootView.findViewById(R.id.fragment_itemlist_logo_img);
     youtube_text = rootView.findViewById(R.id.main_youtube_text);
     category_btn = new Button[6];
@@ -52,6 +57,20 @@ public class FragmentItemList extends Fragment {
     sort_btn = rootView.findViewById(R.id.fragment_itemlist_sort_btn);
     itemlist = rootView.findViewById(R.id.fragment_itemlist_listview);
     floatingbtn = rootView.findViewById(R.id.fragment_itemlist_floating_btn);
+
+    itemlist.setAdapter(adapter);
+
+    // DB 불러오는 부분 함수로 따로 선언
+    // oncReateview 바로 로드
+
+    FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
+    List<Food> foodlist = db.selectAll(true);
+
+    for(Food f: foodlist) {
+      adapter.addItem(f);
+    }
+
+
 
     floatingbtn.setOnClickListener(new Button.OnClickListener() {
       @Override
@@ -93,14 +112,14 @@ public class FragmentItemList extends Fragment {
       }
     });
 
-    // DB 불러오는 부분 함수로 따로 선언
-    // oncReateview 바로 로드
+
 
     // CODE AREA
 
     return rootView;
 
   }
+
 
 
 }
