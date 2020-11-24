@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <PreferenceCategory
+    android:title="계정 설정"
+    android:key="hola">
+    <Preference
+      android:defaultValue="Test User"
+      android:key="user_id"
+      android:selectAllOnFocus="true"
+      android:singleLine="true"
+      android:summary="Test User"
+      app:defaultValue="Test User"
+      android:title="이름" />
+    <Preference
+      android:defaultValue="test@test.com"
+      android:key="user_mail"
+      android:selectAllOnFocus="true"
+      android:singleLine="true"
+      android:summary="test@test.com"
+      android:title="이메일" />
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="알림 설정"
+    android:summary="알림은 17:00에 표시됩니다.">
+    <SwitchPreference
+      android:defaultValue="false"
+      android:key="useAlarm"
+      android:summary="알림을 사용합니다."
+      android:summaryOff="알림을 사용하지 않습니다."
+      android:title="알림 사용" />
+  </PreferenceCategory>
+
+  <MultiSelectListPreference
+    android:title="알림 설정"
+    android:key="alramCycle"
+    android:dependency="useAlarm"
+    android:entryValues="@array/alarmCycle_name"
+    android:defaultValue="@array/empty_array"
+    android:entries="@array/alarmCycle_name" />
+
+
+</PreferenceScreen>

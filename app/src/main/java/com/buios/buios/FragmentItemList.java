@@ -4,11 +4,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +57,7 @@ public class FragmentItemList extends Fragment {
     itemlist = rootView.findViewById(R.id.fragment_itemlist_listview);
     floatingbtn = rootView.findViewById(R.id.fragment_itemlist_floating_btn);
 
-    floatingbtn.setOnClickListener(new Button.OnClickListener() {
+    floatingbtn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
@@ -93,6 +97,22 @@ public class FragmentItemList extends Fragment {
       }
     });
 
+    sort_btn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PopupMenu popup = new PopupMenu(getContext(), v);
+        popup.getMenuInflater().inflate(R.menu.sort_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+          @Override
+          public boolean onMenuItemClick(MenuItem item) {
+            // DB 작성후 이벤트 구현 예정
+            return false;
+          }
+        });
+        popup.show();
+      }
+    });
     // DB 불러오는 부분 함수로 따로 선언
     // oncReateview 바로 로드
 
@@ -101,6 +121,6 @@ public class FragmentItemList extends Fragment {
     return rootView;
 
   }
-
-
 }
+
+

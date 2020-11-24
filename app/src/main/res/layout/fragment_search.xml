@@ -12,6 +12,7 @@
     android:text="Search"
     android:textSize="30sp"
     android:textStyle="bold"
+    android:textColor="@color/black"
     android:layout_marginBottom="20dp"/>
 
   <!--  검색창 -->
@@ -28,6 +29,8 @@
       android:src="@drawable/ic_search"
       />
     <EditText
+      android:id="@+id/fragment_search_keyword"
+      android:maxLines="1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
   </LinearLayout>
@@ -45,7 +48,7 @@
       android:layout_marginRight="5dp"
       />
     <TextView
-      android:id="@+id/search_youtube_text"
+      android:id="@+id/fragment_search_youtube_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="추천" />
