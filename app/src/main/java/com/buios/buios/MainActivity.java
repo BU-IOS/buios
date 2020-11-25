@@ -1,10 +1,9 @@
 package com.buios.buios;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,23 +20,22 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
     bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
 
-
-    FragmentTransaction transaction =  fragmentManager.beginTransaction();
+    FragmentTransaction transaction = fragmentManager.beginTransaction();
     transaction.replace(R.id.main_layout, fragmentItemList).commitAllowingStateLoss();
 
 
   }
-  class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+  class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
       FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-      switch(menuItem.getItemId())
-      {
+      switch (menuItem.getItemId()) {
         case R.id.nav1:
           transaction.replace(R.id.main_layout, fragmentItemList).commitAllowingStateLoss();
 

@@ -15,8 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,14 +26,19 @@ public class FragmentItemList extends Fragment {
   private Button sort_btn;
   private ListView itemlist;
   private FloatingActionButton floatingbtn;
-  private final int[] cateogry_list = new int[]{R.id.fragment_itemlist_category1_btn,
+  final static int[] cateogry_list = new int[]{R.id.fragment_itemlist_category1_btn,
       R.id.fragment_itemlist_category2_btn, R.id.fragment_itemlist_category3_btn,
       R.id.fragment_itemlist_category4_btn, R.id.fragment_itemlist_category5_btn,
       R.id.fragment_itemlist_category6_btn};
 
   private DialogItem dialogItem;
 
+  private Food f;
+
   FragmentManager fm;
+
+  public FragmentItemList() {
+  }
 
   @Nullable
   @Override
@@ -66,11 +69,21 @@ public class FragmentItemList extends Fragment {
     FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
     List<Food> foodlist = db.selectAll(true);
 
-    for(Food f: foodlist) {
+    for (Food f : foodlist) {
       adapter.addItem(f);
     }
 
+    /*
 
+     // Dialog 종료 후에 데이터 변경 시 구현 예정
+    adapter.registerDataSetObserver(new DataSetObserver() {
+      @Override
+      public void onChanged() {
+        super.onChanged();
+      }
+    });
+
+     */
 
     floatingbtn.setOnClickListener(new Button.OnClickListener() {
       @Override
@@ -112,14 +125,11 @@ public class FragmentItemList extends Fragment {
       }
     });
 
-
-
     // CODE AREA
 
     return rootView;
 
   }
-
 
 
 }

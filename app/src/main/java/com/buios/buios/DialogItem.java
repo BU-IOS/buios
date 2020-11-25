@@ -1,7 +1,6 @@
 package com.buios.buios;
 
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +27,8 @@ public class DialogItem extends DialogFragment {
 
   private boolean isEditing;
   boolean isAdding;
+
+  Bundle bundle = new Bundle();
 
   Fragment frag;
 
@@ -65,9 +66,6 @@ public class DialogItem extends DialogFragment {
     getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
     fm = getFragmentManager();
-
-    isAdding = getArguments().getBoolean("isAdding", false);
-
     isEditing = false;
 
     category_img = dialogView.findViewById(R.id.dialog_itemview_img);
@@ -83,12 +81,8 @@ public class DialogItem extends DialogFragment {
     deletebtn = dialogView.findViewById(R.id.dialog_itemview_deletebtn);
     modifybtn = dialogView.findViewById(R.id.dialog_itemview_modifybtn);
 
-
-
-    /*
-    DB 작성후 작성
-    category, name, date, memo load 후 setText, src 설정
-     */
+    // MARK - get from fragment
+    isAdding = getArguments().getBoolean("isAdding", false);
 
     modifybtn.setOnClickListener(new Button.OnClickListener() {
       @Override
@@ -96,45 +90,34 @@ public class DialogItem extends DialogFragment {
         if (!isEditing) {
           setEditing(true);
 
-          if (!isAdding)
+          if (!isAdding) {
             modifybtn.setText("수정 완료");
+          }
           deletebtn.setText("취소");
-
-          /*
-          액션 변경 예정
-          modifybtn.setOnClickListener();
-          deletebtn.setOnClickListener();
-           */
 
         } else {
           setname(name_edit.getText().toString());
           setdate(date_edit.getText().toString());
           setmemo(memo_edit.getText().toString());
 
-          if (isAdding){
+          if (isAdding) {
             isAdding = false;
-            CursorFactory cursor;
             FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
             db.insertData(name, date, memo, imgnum);
           }
 
           if (frag != null) {
-            Bundle bundle = new Bundle();
             bundle.putInt("itemimg", imgnum);
             bundle.putString("itemname", name);
             bundle.putString("itemdate", date);
             bundle.putString("itemmemo", memo);
             frag.setArguments(bundle);
           }
+
           setEditing(false);
           modifybtn.setText("수정");
           deletebtn.setText("삭제");
 
-         /*
-          액션 변경 예정
-          modifybtn.setOnClickListener();
-          deletebtn.setOnClickListener();
-           */
 
         }
       }
@@ -185,10 +168,22 @@ public class DialogItem extends DialogFragment {
     super.onActivityCreated(savedInstanceState);
     // bundle을 전송하기 위한 부모 fragment 찾기
     frag = getFragmentManager().findFragmentById(R.id.main_layout);
+
     if (isAdding) {
       setEditing(true);
       deletebtn.setText("취소");
       modifybtn.setText("추가");
+    } else {
+
+      imgnum = getArguments().getInt("itemimg", -1);
+      name = getArguments().getString("itemname", "");
+      date = getArguments().getString("itemdate", "");
+      memo = getArguments().getString("itemmemo", "");
+
+      setimg(imgnum);
+      setname(name);
+      setdate(date);
+      setmemo(memo);
     }
 
 
