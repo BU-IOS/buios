@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FoodDBManager extends SQLiteOpenHelper {
 
@@ -49,8 +48,8 @@ public class FoodDBManager extends SQLiteOpenHelper {
     db.execSQL(sql, new Object[]{name, date, memo, category});
   }
 
-  public List<Food> selectAll(boolean isSortbyDate) {
-    List<Food> result = new ArrayList<Food>();
+  public ArrayList<Food> selectAll(boolean isSortbyDate) {
+    ArrayList<Food> result = new ArrayList<Food>();
     String sql;
     if (isSortbyDate) {
       sql = "SELECT * FROM FOOD_DB ORDER BY DUE";
@@ -72,8 +71,8 @@ public class FoodDBManager extends SQLiteOpenHelper {
     return result;
   }
 
-  public List<Food> selectAll(int category, boolean isSortbyDate) {
-    List<Food> result = new ArrayList<Food>();
+  public ArrayList<Food> selectAll(int category, boolean isSortbyDate) {
+    ArrayList<Food> result = new ArrayList<Food>();
     String sql;
     if (isSortbyDate) {
       sql = "SELECT * FROM FOOD_DB WHERE  CATEGORY LIKE ?  ORDER BY DUE";
@@ -93,8 +92,9 @@ public class FoodDBManager extends SQLiteOpenHelper {
     return result;
   }
 
-  public List<Food> searchItem(String keyword) {
-    List<Food> result = new ArrayList<Food>();
+  /*
+  public ArrayList<Food> searchItem(String keyword) {
+    ArrayList<Food> result = new ArrayList<Food>();
     keyword = '%' + keyword + '%';
     String sql = "SELECT * FROM FOOD_DB WHERE ( NAME LIKE ? OR MEMO LIKE ?) ORDER BY DUE";
     Cursor cursor = db.rawQuery(sql, new String[]{keyword, keyword});
@@ -109,7 +109,7 @@ public class FoodDBManager extends SQLiteOpenHelper {
     }
     return result;
   }
-
+  */
 
   public void deleteItem(int id) {
     String sql = "DELETE FROM FOOD_DB WHERE ID = ?";
@@ -120,5 +120,6 @@ public class FoodDBManager extends SQLiteOpenHelper {
     String sql = "UPDATE FOOD_DB SET NAME = ?, DUE = ?, MEMO = ?, CATEGORY = ? WHERE ID = ?;";
     db.execSQL(sql, new Object[]{name, date, memo, category, id});
   }
+
 
 }

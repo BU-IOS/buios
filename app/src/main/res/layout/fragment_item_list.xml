@@ -134,12 +134,20 @@
   <!--  리스트 표시 -->
   <ListView
     android:id="@+id/fragment_itemlist_listview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:contextClickable="true"
+    android:divider="@color/white"
+    android:dividerHeight="10dp"
+    android:gravity="center_horizontal"
+    android:scrollbars="none"
+    android:clickable="true"
+    android:layout_marginTop="20dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/fragment_itemlist_sort_btn" />
+    app:layout_constraintTop_toBottomOf="@id/fragment_itemlist_sort_btn"
+    android:focusable="true" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fragment_itemlist_floating_btn"
