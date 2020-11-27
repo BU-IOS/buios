@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class FragmentItemList extends Fragment {
@@ -67,7 +67,7 @@ public class FragmentItemList extends Fragment {
     // oncReateview 바로 로드
 
     FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
-    List<Food> foodlist = db.selectAll(true);
+    ArrayList<Food> foodlist = db.selectAll(true);
 
     for (Food f : foodlist) {
       adapter.addItem(f);
