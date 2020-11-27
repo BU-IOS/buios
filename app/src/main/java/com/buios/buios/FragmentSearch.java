@@ -19,13 +19,13 @@ public class FragmentSearch extends Fragment {
   private ListView listview;
   private EditText search_keyword;
   private TextView youtube_text;
-
   private final FoodListViewAdapter adapter = new FoodListViewAdapter();
   private ListView listView;
   private EditText keywordEdit;
   private TextView youtubeLink;
   private FoodDBManager db;
   private ArrayList<Food> foodlist;
+
 
   @Nullable
   @Override
