@@ -34,8 +34,9 @@ public class FragmentItemList extends Fragment {
       R.id.fragment_itemlist_category2_btn, R.id.fragment_itemlist_category3_btn,
       R.id.fragment_itemlist_category4_btn, R.id.fragment_itemlist_category5_btn,
       R.id.fragment_itemlist_category6_btn};
-
+  static int filter = -1;
   private DialogItem dialogItem;
+  boolean sortByDate = true;
 
   private Food f;
 
@@ -60,6 +61,22 @@ public class FragmentItemList extends Fragment {
     category_btn = new Button[6];
     for (int i = 0; i < cateogry_list.length; i++) {
       category_btn[i] = rootView.findViewById(cateogry_list[i]);
+      final int n = i;
+      category_btn[i].setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          int number = n;
+          if (filter == number) {
+            filter = -1;
+            adapter.updateList();
+//            category_btn[number].setBackgroundColor(Color.WHITE);
+          } else {
+            filter = number;
+            adapter.updateList(number);
+//            category_btn[number].setBackgroundColor(container.getResources().getColor(R.color.green_2));
+          }
+        }
+      });
     }
     sort_btn = rootView.findViewById(R.id.fragment_itemlist_sort_btn);
     itemlist = rootView.findViewById(R.id.fragment_itemlist_listview);
@@ -142,7 +159,19 @@ public class FragmentItemList extends Fragment {
           @Override
           public boolean onMenuItemClick(MenuItem item) {
             // DB 작성후 이벤트 구현 예정
-            return false;
+            Log.d("FragmentItemList", "menu click!");
+            switch (item.getItemId()) {
+              case R.id.sort1:
+                adapter.setSortByDate(false);
+                adapter.updateList();
+                return true;
+              case R.id.sort2:
+                adapter.setSortByDate(true);
+                adapter.updateList();
+                return true;
+              default:
+                return false;
+            }
           }
         });
         popup.show();

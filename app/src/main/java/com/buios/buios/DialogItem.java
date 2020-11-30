@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 
 
 public class DialogItem extends DialogFragment {
+
   FoodDBManager db;
   private boolean isEditing;
   boolean isAdding;

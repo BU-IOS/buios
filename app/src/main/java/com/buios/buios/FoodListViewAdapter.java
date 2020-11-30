@@ -24,19 +24,34 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
       R.drawable.img_seafood, R.drawable.img_milk, R.drawable.img_meat, R.drawable.img_meat};
   private ArrayList<Food> filteredItemList = listviewItemList;
   private Filter listFilter;
-  private Context context;
+  private final Context context;
+  static boolean sortByDate = true;
 
+  //  boolean sortByDate = true;
   public FoodListViewAdapter(Context context) {
     this.context = context;
+  }
+
+  public void setSortByDate(boolean sortByDate) {
+    FoodListViewAdapter.sortByDate = sortByDate;
   }
 
   public void updateList() {
     FoodDBManager db = new FoodDBManager(context, "FOOD_DB", null, 1);
     resetAdapter();
-    this.listviewItemList = db.selectAll(true);
+    this.listviewItemList = db.selectAll(sortByDate);
     this.filteredItemList = listviewItemList;
     notifyDataSetChanged();
   }
+
+  public void updateList(int cateogry) {
+    FoodDBManager db = new FoodDBManager(context, "FOOD_DB", null, 1);
+    resetAdapter();
+    this.listviewItemList = db.selectAll(cateogry, sortByDate);
+    this.filteredItemList = listviewItemList;
+    notifyDataSetChanged();
+  }
+
   public void resetAdapter() {
     this.listviewItemList = new ArrayList<Food>();
     this.filteredItemList = listviewItemList;
@@ -125,10 +140,10 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
     }
   }
 
-  public void updateItems(ArrayList<Food> f) {
-    resetAdapter();
-    addItem(f);
-  }
+//  public void updateItems(ArrayList<Food> f) {
+//    resetAdapter();
+//    addItem(f);
+//  }
 
   // filter 작성
   private class ListFilter extends Filter {

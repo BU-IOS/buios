@@ -16,10 +16,11 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class FragmentSearch extends Fragment {
+
   private ListView listview;
   private EditText search_keyword;
   private TextView youtube_text;
-  private  FoodListViewAdapter adapter;
+  private FoodListViewAdapter adapter;
   private ListView listView;
   private EditText keywordEdit;
   private TextView youtubeLink;
@@ -69,9 +70,7 @@ public class FragmentSearch extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
-    foodlist = db.selectAll(true);
-    adapter.updateItems(foodlist);
+    adapter.updateList();
   }
 
 

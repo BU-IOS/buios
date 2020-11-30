@@ -38,55 +38,62 @@
       android:layout_height="wrap_content"
       android:fillViewport="true"
       android:orientation="horizontal">
+      <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/fragment_itemlist_buttongrp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleSelection="true">
 
-      <Button
-        android:id="@+id/fragment_itemlist_category1_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="5dp"
-        android:text="과일"
-        style="@style/category_style" />
-      <Button
-        android:id="@+id/fragment_itemlist_category2_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        style="@style/category_style"
-        android:text="채소" />
-      <Button
-        android:id="@+id/fragment_itemlist_category3_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:text="고기"
-        style="@style/category_style" />
+        <Button
+          android:id="@+id/fragment_itemlist_category1_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginRight="5dp"
+          android:text="채소"
+          style="@style/category_style" />
+        <Button
+          android:id="@+id/fragment_itemlist_category2_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          style="@style/category_style"
+          android:text="과일" />
+        <Button
+          android:id="@+id/fragment_itemlist_category3_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:text="해산물"
+          style="@style/category_style" />
 
-      <Button
-        android:id="@+id/fragment_itemlist_category4_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:text="유제품"
-        style="@style/category_style" />
-      <Button
-        android:id="@+id/fragment_itemlist_category5_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:text="해산물"
-        style="@style/category_style" />
-      <Button
-        android:id="@+id/fragment_itemlist_category6_btn"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:text="반찬"
-        style="@style/category_style" />
+        <Button
+          android:id="@+id/fragment_itemlist_category4_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:text="유제품"
+          style="@style/category_style" />
+        <Button
+          android:id="@+id/fragment_itemlist_category5_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:text="고기"
+          style="@style/category_style" />
+        <Button
+          android:id="@+id/fragment_itemlist_category6_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:text="반찬"
+          style="@style/category_style" />
+
+      </com.google.android.material.button.MaterialButtonToggleGroup>
 
     </LinearLayout>
 
