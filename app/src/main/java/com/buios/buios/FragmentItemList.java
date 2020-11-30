@@ -36,7 +36,7 @@ public class FragmentItemList extends Fragment {
       R.id.fragment_itemlist_category6_btn};
   static int filter = -1;
   private DialogItem dialogItem;
-  boolean sortByDate = true;
+  boolean sortTooggle = true;
 
   private Food f;
 
@@ -152,29 +152,18 @@ public class FragmentItemList extends Fragment {
     sort_btn.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        PopupMenu popup = new PopupMenu(getContext(), v);
-        popup.getMenuInflater().inflate(R.menu.sort_menu, popup.getMenu());
+        if(sortTooggle){
+          sortTooggle = false;
+          sort_btn.setText("가나다 순");
+          adapter.setSortByDate(false);
+          adapter.updateList();
+        } else {
+          sortTooggle = true;
+          sort_btn.setText("유통기한 순");
+          adapter.setSortByDate(true);
+          adapter.updateList();
+        }
 
-        popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-          @Override
-          public boolean onMenuItemClick(MenuItem item) {
-            // DB 작성후 이벤트 구현 예정
-            Log.d("FragmentItemList", "menu click!");
-            switch (item.getItemId()) {
-              case R.id.sort1:
-                adapter.setSortByDate(false);
-                adapter.updateList();
-                return true;
-              case R.id.sort2:
-                adapter.setSortByDate(true);
-                adapter.updateList();
-                return true;
-              default:
-                return false;
-            }
-          }
-        });
-        popup.show();
       }
     });
     // DB 불러오는 부분 함수로 따로 선언
