@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import androidx.fragment.app.FragmentManager;
 
 
 public class DialogItem extends DialogFragment {
-
+  FoodDBManager db;
   private boolean isEditing;
   boolean isAdding;
 
@@ -43,6 +44,7 @@ public class DialogItem extends DialogFragment {
 
   Button deletebtn, modifybtn;
 
+  int id = 0;
   int imgnum = -1;
   String name = "", date = "", memo = "";
 
@@ -64,6 +66,7 @@ public class DialogItem extends DialogFragment {
       @Nullable Bundle savedInstanceState) {
     View dialogView = inflater.inflate(R.layout.dialg_itemview, container, false);
     getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    this.db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
 
     fm = getFragmentManager();
     isEditing = false;
@@ -81,7 +84,7 @@ public class DialogItem extends DialogFragment {
     deletebtn = dialogView.findViewById(R.id.dialog_itemview_deletebtn);
     modifybtn = dialogView.findViewById(R.id.dialog_itemview_modifybtn);
 
-    // MARK - get from fragment
+    //MARK - get from fragment
     isAdding = getArguments().getBoolean("isAdding", false);
 
     modifybtn.setOnClickListener(new Button.OnClickListener() {
@@ -102,11 +105,13 @@ public class DialogItem extends DialogFragment {
 
           if (isAdding) {
             isAdding = false;
-            FoodDBManager db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
             db.insertData(name, date, memo, imgnum);
+          } else {
+            db.updateItem(id, name, date, memo, imgnum);
           }
 
           if (frag != null) {
+            bundle.putInt("itemid", id);
             bundle.putInt("itemimg", imgnum);
             bundle.putString("itemname", name);
             bundle.putString("itemdate", date);
@@ -127,10 +132,10 @@ public class DialogItem extends DialogFragment {
       @Override
       public void onClick(View v) {
         if (isAdding || isEditing) {
-          dismiss();
+          getDialog().dismiss();
         } else {
-          //bundle에 delete 담아 보내서 dismiss
-          Bundle bundle = new Bundle();
+          Log.d("DialogItem", ": send to delete");
+          db.deleteItem(id);
           getDialog().dismiss();
         }
       }
@@ -175,6 +180,7 @@ public class DialogItem extends DialogFragment {
       modifybtn.setText("추가");
     } else {
 
+      id = getArguments().getInt("itemid", 0);
       imgnum = getArguments().getInt("itemimg", -1);
       name = getArguments().getString("itemname", "");
       date = getArguments().getString("itemdate", "");

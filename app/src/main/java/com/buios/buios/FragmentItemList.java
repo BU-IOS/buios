@@ -53,7 +53,7 @@ public class FragmentItemList extends Fragment {
 
     fm = getFragmentManager();
 
-    FoodListViewAdapter adapter = new FoodListViewAdapter();
+    FoodListViewAdapter adapter = new FoodListViewAdapter(getContext());
 
     logo_img = rootView.findViewById(R.id.fragment_itemlist_logo_img);
     youtube_text = rootView.findViewById(R.id.main_youtube_text);
@@ -108,6 +108,7 @@ public class FragmentItemList extends Fragment {
         dialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
           @Override
           public void onDismiss(DialogInterface dialog) {
+
             if (getArguments() != null) {
               int img = getArguments().getInt("itemimg", -1);
               String name = getArguments().getString("itemname", "");
@@ -123,6 +124,7 @@ public class FragmentItemList extends Fragment {
               Log.d("item_dialog_Test", "NULL");
             }
 
+            adapter.updateList();
           }
         });
         //DB 추가

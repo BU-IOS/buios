@@ -19,7 +19,7 @@ public class FragmentSearch extends Fragment {
   private ListView listview;
   private EditText search_keyword;
   private TextView youtube_text;
-  private final FoodListViewAdapter adapter = new FoodListViewAdapter();
+  private  FoodListViewAdapter adapter;
   private ListView listView;
   private EditText keywordEdit;
   private TextView youtubeLink;
@@ -34,6 +34,7 @@ public class FragmentSearch extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_search, container, false);
     keywordEdit = rootView.findViewById(R.id.fragment_search_keyword);
     listView = rootView.findViewById(R.id.fragment_search_list);
+    adapter = new FoodListViewAdapter(getContext());
     listView.setAdapter(adapter);
     youtubeLink = rootView.findViewById(R.id.fragment_search_youtube_text);
     listView.setTextFilterEnabled(true);
