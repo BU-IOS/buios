@@ -34,8 +34,9 @@ public class FragmentItemList extends Fragment {
       R.id.fragment_itemlist_category2_btn, R.id.fragment_itemlist_category3_btn,
       R.id.fragment_itemlist_category4_btn, R.id.fragment_itemlist_category5_btn,
       R.id.fragment_itemlist_category6_btn};
-
+  static int filter = -1;
   private DialogItem dialogItem;
+  boolean sortTooggle = true;
 
   private Food f;
 
@@ -53,13 +54,29 @@ public class FragmentItemList extends Fragment {
 
     fm = getFragmentManager();
 
-    FoodListViewAdapter adapter = new FoodListViewAdapter();
+    FoodListViewAdapter adapter = new FoodListViewAdapter(getContext());
 
     logo_img = rootView.findViewById(R.id.fragment_itemlist_logo_img);
     youtube_text = rootView.findViewById(R.id.main_youtube_text);
     category_btn = new Button[6];
     for (int i = 0; i < cateogry_list.length; i++) {
       category_btn[i] = rootView.findViewById(cateogry_list[i]);
+      final int n = i;
+      category_btn[i].setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          int number = n;
+          if (filter == number) {
+            filter = -1;
+            adapter.updateList();
+//            category_btn[number].setBackgroundColor(Color.WHITE);
+          } else {
+            filter = number;
+            adapter.updateList(number);
+//            category_btn[number].setBackgroundColor(container.getResources().getColor(R.color.green_2));
+          }
+        }
+      });
     }
     sort_btn = rootView.findViewById(R.id.fragment_itemlist_sort_btn);
     itemlist = rootView.findViewById(R.id.fragment_itemlist_listview);
@@ -108,6 +125,7 @@ public class FragmentItemList extends Fragment {
         dialog.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
           @Override
           public void onDismiss(DialogInterface dialog) {
+
             if (getArguments() != null) {
               int img = getArguments().getInt("itemimg", -1);
               String name = getArguments().getString("itemname", "");
@@ -123,6 +141,7 @@ public class FragmentItemList extends Fragment {
               Log.d("item_dialog_Test", "NULL");
             }
 
+            adapter.updateList();
           }
         });
         //DB 추가
@@ -133,17 +152,18 @@ public class FragmentItemList extends Fragment {
     sort_btn.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        PopupMenu popup = new PopupMenu(getContext(), v);
-        popup.getMenuInflater().inflate(R.menu.sort_menu, popup.getMenu());
+        if(sortTooggle){
+          sortTooggle = false;
+          sort_btn.setText("가나다 순");
+          adapter.setSortByDate(false);
+          adapter.updateList();
+        } else {
+          sortTooggle = true;
+          sort_btn.setText("유통기한 순");
+          adapter.setSortByDate(true);
+          adapter.updateList();
+        }
 
-        popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-          @Override
-          public boolean onMenuItemClick(MenuItem item) {
-            // DB 작성후 이벤트 구현 예정
-            return false;
-          }
-        });
-        popup.show();
       }
     });
     // DB 불러오는 부분 함수로 따로 선언

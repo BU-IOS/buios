@@ -16,10 +16,11 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class FragmentSearch extends Fragment {
+
   private ListView listview;
   private EditText search_keyword;
   private TextView youtube_text;
-  private final FoodListViewAdapter adapter = new FoodListViewAdapter();
+  private FoodListViewAdapter adapter;
   private ListView listView;
   private EditText keywordEdit;
   private TextView youtubeLink;
@@ -34,6 +35,7 @@ public class FragmentSearch extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_search, container, false);
     keywordEdit = rootView.findViewById(R.id.fragment_search_keyword);
     listView = rootView.findViewById(R.id.fragment_search_list);
+    adapter = new FoodListViewAdapter(getContext());
     listView.setAdapter(adapter);
     youtubeLink = rootView.findViewById(R.id.fragment_search_youtube_text);
     listView.setTextFilterEnabled(true);
@@ -68,9 +70,7 @@ public class FragmentSearch extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    db = new FoodDBManager(getContext(), "FOOD_DB", null, 1);
-    foodlist = db.selectAll(true);
-    adapter.updateItems(foodlist);
+    adapter.updateList();
   }
 
 

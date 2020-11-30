@@ -1,6 +1,8 @@
 package com.buios.buios;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +24,37 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
       R.drawable.img_seafood, R.drawable.img_milk, R.drawable.img_meat, R.drawable.img_meat};
   private ArrayList<Food> filteredItemList = listviewItemList;
   private Filter listFilter;
+  private final Context context;
+  static boolean sortByDate = true;
+
+  //  boolean sortByDate = true;
+  public FoodListViewAdapter(Context context) {
+    this.context = context;
+  }
+
+  public void setSortByDate(boolean sortByDate) {
+    FoodListViewAdapter.sortByDate = sortByDate;
+  }
+
+  public void updateList() {
+    FoodDBManager db = new FoodDBManager(context, "FOOD_DB", null, 1);
+    resetAdapter();
+    this.listviewItemList = db.selectAll(sortByDate);
+    this.filteredItemList = listviewItemList;
+    notifyDataSetChanged();
+  }
+
+  public void updateList(int cateogry) {
+    FoodDBManager db = new FoodDBManager(context, "FOOD_DB", null, 1);
+    resetAdapter();
+    this.listviewItemList = db.selectAll(cateogry, sortByDate);
+    this.filteredItemList = listviewItemList;
+    notifyDataSetChanged();
+  }
 
   public void resetAdapter() {
     this.listviewItemList = new ArrayList<Food>();
+    this.filteredItemList = listviewItemList;
   }
 
 
@@ -72,6 +102,7 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
 
         DialogItem dialog = DialogItem.getInstance();
         Bundle bundle = new Bundle();
+        bundle.putInt("itemid", f.id);
         bundle.putInt("itemimg", f.category);
         bundle.putString("itemname", f.name);
         bundle.putString("itemdate", f.date);
@@ -82,6 +113,13 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
         dialog.show(fm, "itemdialog");
 
         fm.executePendingTransactions();
+        dialog.getDialog().setOnDismissListener(new OnDismissListener() {
+          @Override
+          public void onDismiss(DialogInterface dialog) {
+            updateList();
+            notifyDataSetChanged();
+          }
+        });
 
         // 데이터 변경시, DB 전송 및  갱신 구현
 
@@ -102,10 +140,10 @@ public class FoodListViewAdapter extends BaseAdapter implements Filterable {
     }
   }
 
-  public void updateItems(ArrayList<Food> f) {
-    resetAdapter();
-    addItem(f);
-  }
+//  public void updateItems(ArrayList<Food> f) {
+//    resetAdapter();
+//    addItem(f);
+//  }
 
   // filter 작성
   private class ListFilter extends Filter {
